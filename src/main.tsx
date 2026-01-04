@@ -3,15 +3,16 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { createTheme, MantineProvider } from "@mantine/core";
 import "./index.css";
+import { ProductsProvider } from "./modules/products/index.tsx";
 
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
+const theme = createTheme({});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
-      <App />
+      <ProductsProvider value="My Products Context Value">
+        <App />
+      </ProductsProvider>
     </MantineProvider>
   </StrictMode>,
 );
