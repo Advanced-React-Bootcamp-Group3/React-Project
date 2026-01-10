@@ -9,6 +9,7 @@ export type Product = {
   hasDiscounts: boolean;
   discountPercentage?: number;
   rating: number;
+  tags: string[];
   reviews: Review[];
 };
 
