@@ -11,8 +11,8 @@ import {
 import { useGetAllProducts } from "../hooks/useGetAllProducts";
 
 export const Products = () => {
-  const { products } = useGetAllProducts();
-
+  const { products, loading } = useGetAllProducts();
+  if(loading) return <div>Loading...</div>;
   return (
     <Grid>
       {products.map((product) => {
