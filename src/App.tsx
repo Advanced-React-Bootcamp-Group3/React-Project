@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import Products from "./modules/products/views";
+import { Products } from "./modules/products/views";
 
 function App() {
   return <Products />;
