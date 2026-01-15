@@ -1,44 +1,33 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Grid,
-  Group,
-  Image,
-  Pill,
-  Text,
-} from "@mantine/core";
+import { Title, Stack, Divider } from "@mantine/core";
 import { useGetAllProducts } from "../hooks/useGetAllProducts";
+import { DiscountProductsCarousel } from "./DiscountProductsCarousel";
+import { AllProductsGrid } from "./AllProductsGrid";
 
 export const Products = () => {
-  const { products, loading } = useGetAllProducts();
-  if(loading) return <div>Loading...</div>;
+  const { isEmpty, productWithdiscount, isLoading } = useGetAllProducts();
+
+  if (!isLoading && isEmpty) {
+    return <Title>No products available</Title>;
+  }
+  if(isLoading){
+    return<Title> Loading....</Title>
+  }
   return (
-    <Grid>
-      {products.map((product) => {
-        return (
-          <Grid.Col span={4} key={product.id}>
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
-              <Card.Section>
-                <Image src={product.image} height={160} alt={product.name} />
-              </Card.Section>
-              {product.isAvailable && <Pill>Available</Pill>}
-              <Group justify="space-between" mt="md" mb="xs">
-                <Text fw={500}>{product.name}</Text>
-                <Badge color="pink">On Sale</Badge>
-              </Group>
+    <Stack gap="xl">
+      {/* Discount Products Carousel Section */}
+      {productWithdiscount.length > 0 && (
+        <DiscountProductsCarousel products={productWithdiscount} />
+      )}
 
-              <Text size="sm" c="dimmed">
-                {product.description}
-              </Text>
+      <Divider my="md" />
 
-              <Button color="blue" fullWidth mt="md" radius="md">
-                Order Now
-              </Button>
-            </Card>
-          </Grid.Col>
-        );
-      })}
-    </Grid>
+      {/* All Products with Infinite Scroll */}
+      <div>
+        <Title order={2} mb="md">
+          All Products
+        </Title>
+        <AllProductsGrid />
+      </div>
+    </Stack>
   );
 };
