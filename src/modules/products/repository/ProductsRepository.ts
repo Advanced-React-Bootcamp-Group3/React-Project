@@ -10,4 +10,5 @@ export type PaginatedResponse = {
 export interface ProductsRepository {
   getAll: () => Promise<Product[]>;
   getPaginated: (page: number, limit?: number) => Promise<PaginatedResponse>;
+  deleteOne: (id: number) => Promise<void>;
 }

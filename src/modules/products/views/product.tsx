@@ -5,11 +5,20 @@ import {
   Box,
   Image,
   Text,
+  Loader,
 } from "@mantine/core";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
+import { useDeleteProduct } from "../hooks/useDeleteProduct";
 
 export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => {
   const hasDiscount = product.hasDiscounts && product.discountPercentage;
+  const { deleteProduct, isPending, isSuccess, error } = useDeleteProduct({
+    onSuccess: () => {
+      console.log('delee......');
+      
+    }
+  });
+  if(isSuccess) return null;
 
   return (
     <Card 
@@ -62,9 +71,15 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
           </Text>
         )}
 
-        <Button color="blue" fullWidth radius="md">
+        <Button color="blue" fullWidth radius="md" mb={'5'}>
           Add to Cart
         </Button>
+        <Button color="red" 
+        fullWidth radius={'md'}
+        onClick={() => deleteProduct(product.id as number)}
+        >{isPending ? <Loader color="white" size={'sm'} /> : 'Delete'}
+        </Button>
+        {error && <Text color="red">{error.message}</Text>}
       </Box>
     </Card>
   );
