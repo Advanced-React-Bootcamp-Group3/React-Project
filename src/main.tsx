@@ -6,6 +6,9 @@ import "@mantine/carousel/styles.css";
 import "./index.css";
 import { createProductsModule } from './modules/products/index.tsx';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import { Toaster } from 'react-hot-toast';
+
 const theme = createTheme({});
 
 
@@ -17,6 +20,7 @@ const queryClient = new QueryClient({
 
 
 
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
@@ -24,6 +28,7 @@ createRoot(document.getElementById("root")!).render(
       <ReactQueryDevtools/>
       <ProductsProvider>
         <App />
+        <Toaster />
       </ProductsProvider>
       </QueryClientProvider>
     </MantineProvider>

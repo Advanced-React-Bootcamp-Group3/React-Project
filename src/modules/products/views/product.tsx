@@ -9,13 +9,13 @@ import {
 } from "@mantine/core";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 import { useDeleteProduct } from "../hooks/useDeleteProduct";
+import toast from "react-hot-toast";
 
 export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => {
   const hasDiscount = product.hasDiscounts && product.discountPercentage;
   const { deleteProduct, isPending, isSuccess, error } = useDeleteProduct({
     onSuccess: () => {
-      console.log('delee......');
-      
+      toast.success("Product deleted successfully");
     }
   });
   if(isSuccess) return null;
