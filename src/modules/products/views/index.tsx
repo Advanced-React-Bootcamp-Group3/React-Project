@@ -1,4 +1,4 @@
-import { Title, Stack, Divider } from "@mantine/core";
+import { Title, Stack, Divider, Loader } from "@mantine/core";
 import { useGetAllProducts } from "../hooks/useGetAllProducts";
 import { DiscountProductsCarousel } from "./DiscountProductsCarousel";
 import { AllProductsGrid } from "./AllProductsGrid";
@@ -7,10 +7,10 @@ export const Products = () => {
   const { isEmpty, productWithdiscount, isLoading } = useGetAllProducts();
 
   if (!isLoading && isEmpty) {
-    return <Title>No products available</Title>;
+    return <Title>No products available Now!</Title>;
   }
   if(isLoading){
-    return<Title> Loading....</Title>
+    return <Loader size={'lg'} />
   }
   return (
     <Stack gap="xl">

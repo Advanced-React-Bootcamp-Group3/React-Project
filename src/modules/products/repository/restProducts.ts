@@ -27,5 +27,14 @@ export const restProducts = (): ProductsRepository => {
         limit: data.limit,
       };
     },
+    deleteOne: async (id: number) => {
+      const response = await fetch(`${Base_URL}/${id}`, {
+        method: 'DELETE',
+      });
+      if(!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+      return;
+    }
   };
 };
