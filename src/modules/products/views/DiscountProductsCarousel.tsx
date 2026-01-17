@@ -1,5 +1,14 @@
 import { Carousel } from "@mantine/carousel";
-import { Card, Image, Text, Badge, Group, Box, Title, Button } from "@mantine/core";
+import {
+  Card,
+  Image,
+  Text,
+  Badge,
+  Group,
+  Box,
+  Title,
+  Button,
+} from "@mantine/core";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 
 type DiscountProductsCarouselProps = {
@@ -22,6 +31,7 @@ export const DiscountProductsCarousel = ({
         slideGap="md"
         withControls
         controlSize={36}
+        // indicators omitted to remove dots under the slider
         styles={{
           control: {
             "&[data-inactive]": {
@@ -34,57 +44,81 @@ export const DiscountProductsCarousel = ({
         {products.map((product) => {
           return (
             <Carousel.Slide key={product.id}>
-              <Card shadow="sm" radius="md" withBorder h="100%" style={{ display: "flex", flexDirection: "column" }}>
-                <Card.Section pos="relative">
-                  <Image
-                    src={product.image}
-                    height={200}
-                    alt={product.name}
-                    fit="cover"
-                  />
-                  {product.hasDiscounts && product.discountPercentage && (
-                    <Badge
-                      color="red"
-                      variant="filled"
-                      pos="absolute"
-                      top={10}
-                      right={10}
-                      size="lg"
+              <Box style={{ height: 280 }}>
+                <Card
+                  shadow="sm"
+                  radius="md"
+                  withBorder
+                  h="100%"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: 8,
+                  }}
+                >
+                  <Card.Section pos="relative">
+                    <Image
+                      src={product.image}
+                      height={150}
+                      alt={product.name}
+                      fit="cover"
+                    />
+                    {product.hasDiscounts && product.discountPercentage && (
+                      <Badge
+                        color="red"
+                        variant="filled"
+                        pos="absolute"
+                        top={10}
+                        right={10}
+                        size="lg"
+                      >
+                        {product.discountPercentage}% OFF
+                      </Badge>
+                    )}
+                  </Card.Section>
+
+                  <Box
+                    p="sm"
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <Text
+                      fw={600}
+                      lineClamp={2}
+                      mb="xs"
+                      style={{ minHeight: 40, fontSize: 14 }}
                     >
-                      {product.discountPercentage}% OFF
-                    </Badge>
-                  )}
-                </Card.Section>
+                      {product.name}
+                    </Text>
 
-                <Box p="md" style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                  <Text fw={600} lineClamp={2} mb="xs" style={{ minHeight: 48 }}>
-                    {product.name}
-                  </Text>
-
-                  <Box mt="auto">
-                    <Group gap="xs" align="center" mb="md">
-                      {product.hasDiscounts && product.discountPercentage ? (
-                        <>
-                          <Text size="sm" c="dimmed" td="line-through">
+                    <Box mt="auto">
+                      <Group gap="xs" align="center" mb="sm">
+                        {product.hasDiscounts && product.discountPercentage ? (
+                          <>
+                            <Text size="sm" c="dimmed" td="line-through">
+                              ${product.price.toFixed(2)}
+                            </Text>
+                            <Text size="lg" fw={700} c="red">
+                              ${product.discountedPrice.toFixed(2)}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text size="md" fw={600}>
                             ${product.price.toFixed(2)}
                           </Text>
-                          <Text size="lg" fw={700} c="red">
-                            ${product.discountedPrice.toFixed(2)}
-                          </Text>
-                        </>
-                      ) : (
-                        <Text size="lg" fw={600}>
-                          ${product.price.toFixed(2)}
-                        </Text>
-                      )}
-                    </Group>
+                        )}
+                      </Group>
 
-                    <Button color="blue" fullWidth radius="md">
-                      Add to Cart
-                    </Button>
+                      <Button color="blue" fullWidth radius="md" size="sm">
+                        Add to Cart
+                      </Button>
+                    </Box>
                   </Box>
-                </Box>
-              </Card>
+                </Card>
+              </Box>
             </Carousel.Slide>
           );
         })}
