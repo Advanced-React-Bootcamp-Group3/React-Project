@@ -13,6 +13,15 @@ export const restProducts = (): ProductsRepository => {
       }
       return response.json().then((data) => toProduct(data.products));
     },
+    getOne: async (id: number): Promise<Product> => {
+      const response = await fetch(`${Base_URL}/${id}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch product with id: ${id}`);
+      }
+      const data = await response.json();
+      // Use toProduct adapter for single product by wrapping in array
+      return toProduct([data])[0];
+    },
     getPaginated: async (page: number, limit: number = 12): Promise<PaginatedResponse> => {
       const skip = page * limit;
       const response = await fetch(`${Base_URL}?limit=${limit}&skip=${skip}`);

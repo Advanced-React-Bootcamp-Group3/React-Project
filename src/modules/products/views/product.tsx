@@ -7,6 +7,7 @@ import {
   Text,
   Loader,
 } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 import { useDeleteProduct } from "../hooks/useDeleteProduct";
 import toast from "react-hot-toast";
@@ -29,12 +30,19 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
       style={{ height: "100%", display: "flex", flexDirection: "column" }}
     >
       <Card.Section pos="relative">
-        <Image 
-          src={product.image} 
-          height={200} 
-          alt={product.name}
-          fit="cover"
-        />
+        <Link
+          to="/products/$productId"
+          params={{ productId: String(product.id) }}
+          style={{ textDecoration: "none", display: "block" }}
+        >
+          <Image 
+            src={product.image} 
+            height={200} 
+            alt={product.name}
+            fit="cover"
+            style={{ cursor: "pointer" }}
+          />
+        </Link>
         {hasDiscount && (
           <Badge 
             color="red" 
@@ -47,9 +55,15 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         )}
       </Card.Section>
 
-      <Text fw={600} mt="md" lineClamp={2} style={{ minHeight: 48 }}>
-        {product.name}
-      </Text>
+      <Link
+        to="/products/$productId"
+        params={{ productId: String(product.id) }}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        <Text fw={600} mt="md" lineClamp={2} style={{ minHeight: 48, cursor: "pointer" }}>
+          {product.name}
+        </Text>
+      </Link>
 
       <Text size="sm" c="dimmed" lineClamp={2} mt="xs">
         {product.description}
@@ -76,7 +90,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         </Button>
         <Button color="red" 
         fullWidth radius={'md'}
-        onClick={() => deleteProduct(product.id as number)}
+        onClick={() => deleteProduct(product.id)}
         >{isPending ? <Loader color="white" size={'sm'} /> : 'Delete'}
         </Button>
         {error && <Text color="red">{error.message}</Text>}

@@ -9,6 +9,7 @@ import {
   Title,
   Button,
 } from "@mantine/core";
+import { Link } from "@tanstack/react-router";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 
 type DiscountProductsCarouselProps = {
@@ -57,12 +58,19 @@ export const DiscountProductsCarousel = ({
                   }}
                 >
                   <Card.Section pos="relative">
-                    <Image
-                      src={product.image}
-                      height={150}
-                      alt={product.name}
-                      fit="cover"
-                    />
+                    <Link
+                      to="/products/$productId"
+                      params={{ productId: String(product.id) }}
+                      style={{ textDecoration: "none", display: "block" }}
+                    >
+                      <Image
+                        src={product.image}
+                        height={150}
+                        alt={product.name}
+                        fit="cover"
+                        style={{ cursor: "pointer" }}
+                      />
+                    </Link>
                     {product.hasDiscounts && product.discountPercentage && (
                       <Badge
                         color="red"
@@ -85,14 +93,20 @@ export const DiscountProductsCarousel = ({
                       flexDirection: "column",
                     }}
                   >
-                    <Text
-                      fw={600}
-                      lineClamp={2}
-                      mb="xs"
-                      style={{ minHeight: 40, fontSize: 14 }}
+                    <Link
+                      to="/products/$productId"
+                      params={{ productId: String(product.id) }}
+                      style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      {product.name}
-                    </Text>
+                      <Text
+                        fw={600}
+                        lineClamp={2}
+                        mb="xs"
+                        style={{ minHeight: 40, fontSize: 14, cursor: "pointer" }}
+                      >
+                        {product.name}
+                      </Text>
+                    </Link>
 
                     <Box mt="auto">
                       <Group gap="xs" align="center" mb="sm">

@@ -3,7 +3,7 @@ import type { ProductDto } from "../dto/Product";
 
 export function toProduct(products: ProductDto[]): Product[] {
   return products.map((product) => ({
-    id: String(product.id),
+    id: product.id,
     name: product.title,
     description: product.description,
     category: product.category,
