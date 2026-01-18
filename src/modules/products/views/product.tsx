@@ -5,7 +5,6 @@ import {
   Box,
   Image,
   Text,
-  Loader,
 } from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
@@ -14,12 +13,11 @@ import toast from "react-hot-toast";
 
 export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => {
   const hasDiscount = product.hasDiscounts && product.discountPercentage;
-  const { deleteProduct, isPending, isSuccess, error } = useDeleteProduct({
+  const { deleteProduct, isPending, error } = useDeleteProduct({
     onSuccess: () => {
       toast.success("Product deleted successfully");
     }
   });
-  if(isSuccess) return null;
 
   return (
     <Card 
@@ -88,12 +86,21 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         <Button color="blue" fullWidth radius="md" mb={'5'}>
           Add to Cart
         </Button>
-        <Button color="red" 
-        fullWidth radius={'md'}
-        onClick={() => deleteProduct(product.id)}
-        >{isPending ? <Loader color="white" size={'sm'} /> : 'Delete'}
+        <Button 
+          color="red" 
+          fullWidth 
+          radius="md"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            deleteProduct(product.id);
+          }}
+          loading={isPending}
+          disabled={isPending}
+        >
+          Delete
         </Button>
-        {error && <Text color="red">{error.message}</Text>}
+        {error && <Text c="red" size="sm" mt="xs">{error.message}</Text>}
       </Box>
     </Card>
   );
