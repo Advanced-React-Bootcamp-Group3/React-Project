@@ -22,7 +22,7 @@ type CategoryCardProps = {
 export const CategoryCard = ({ category }: CategoryCardProps) => {
   const theme = useMantineTheme();
   // Unified color for all category cards to keep the UI consistent
-  const unifiedColor = theme.colors.blue[6];
+  const unifiedColor = theme.colors.brown[6];
 
   const getIcon = (slug: string) => {
     const props: { size: number; stroke: number; color: string } = {

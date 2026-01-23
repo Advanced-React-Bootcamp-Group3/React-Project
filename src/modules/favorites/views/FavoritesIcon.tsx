@@ -28,7 +28,7 @@ export const FavoritesIcon = () => {
       width={350}
       position="bottom-end"
       withArrow
-      shadow="md"
+      shadow="sm"
       opened={opened}
       onChange={setOpened}
     >
@@ -38,9 +38,9 @@ export const FavoritesIcon = () => {
           size="lg"
           radius="xl"
           onClick={() => setOpened(!opened)}
-          style={{ position: "relative" }}
+          style={{ position: "relative", overflow: "visible" }}
         >
-          <IconHeart size={20} />
+          <IconHeart size={20} color="#6d5638" />
           {count > 0 && (
             <Badge
               size="xs"
@@ -49,7 +49,7 @@ export const FavoritesIcon = () => {
               style={{
                 position: "absolute",
                 top: -4,
-                right: -4,
+                right: -6,
                 minWidth: 18,
                 height: 18,
                 padding: 0,
@@ -57,6 +57,10 @@ export const FavoritesIcon = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 fontSize: 10,
+                fontWeight: 700,
+                backgroundColor: "var(--mantine-color-red-6)",
+                border: "none",
+                zIndex: 10,
               }}
             >
               {count > 99 ? "99+" : count}
@@ -65,7 +69,7 @@ export const FavoritesIcon = () => {
         </ActionIcon>
       </Popover.Target>
       <Popover.Dropdown>
-        <Stack gap="md">
+        <Stack gap="xs">
           <Text fw={600} size="lg">
             Favorites ({count})
           </Text>
@@ -78,24 +82,8 @@ export const FavoritesIcon = () => {
           ) : (
             <Stack gap="sm" style={{ maxHeight: 400, overflowY: "auto" }}>
               {items.map((item) => (
-                <Group key={item.productId} gap="sm" wrap="nowrap">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    width={60}
-                    height={60}
-                    fit="cover"
-                    radius="sm"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      navigate({
-                        to: "/products/$productId",
-                        params: { productId: String(item.productId) },
-                      });
-                      setOpened(false);
-                    }}
-                  />
-                  <Stack gap={4} style={{ flex: 1, minWidth: 0 }}>
+                <Group key={item.productId} gap="sm">
+                                  <Stack gap={4} style={{ flex: 1, minWidth: 0 }}>
                     <Text
                       fw={500}
                       size="sm"
@@ -115,10 +103,27 @@ export const FavoritesIcon = () => {
                       ${item.price.toFixed(2)}
                     </Text>
                   </Stack>
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={20}
+                    height={100}
+                    fit="contain"
+                    radius="sm"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      navigate({
+                        to: "/products/$productId",
+                        params: { productId: String(item.productId) },
+                      });
+                      setOpened(false);
+                    }}
+                  />
+  
                   <Button
                     variant="subtle"
-                    color="red"
-                    size="xs"
+                    color="brown"
+                    size="sm"
                     onClick={() => handleRemove(item.productId)}
                   >
                     Remove

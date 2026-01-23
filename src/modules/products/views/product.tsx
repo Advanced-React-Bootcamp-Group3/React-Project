@@ -43,7 +43,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         </Link>
         {hasDiscount && (
           <Badge 
-            color="red" 
+            color="gold" 
             variant="filled" 
             size="lg"
             style={{ position: "absolute", top: 10, right: 10 }}
@@ -73,7 +73,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
             <Text size="sm" c="dimmed" td="line-through">
               ${product.price.toFixed(2)}
             </Text>
-            <Text size="xl" fw={700} c="red">
+            <Text size="xl" fw={700} c="gold.5">
               ${product.discountedPrice.toFixed(2)}
             </Text>
           </Box>
@@ -83,11 +83,11 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
           </Text>
         )}
 
-        <Button color="blue" fullWidth radius="md" mb={'5'}>
+        <Button color="brown" fullWidth radius="md" mb={'5'}>
           Add to Cart
         </Button>
         <Button 
-          color="red" 
+          color="brown" 
           fullWidth 
           radius="md"
           onClick={(e) => {
@@ -100,7 +100,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         >
           Delete
         </Button>
-        {error && <Text c="red" size="sm" mt="xs">{error.message}</Text>}
+        {error && <Text c="brown" size="sm" mt="xs">{error.message}</Text>}
       </Box>
     </Card>
   );

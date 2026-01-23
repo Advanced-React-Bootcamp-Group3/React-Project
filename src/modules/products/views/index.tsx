@@ -23,7 +23,7 @@ export const Products = () => {
 
       {/* All Products with Infinite Scroll */}
       <div>
-        <Title order={2} mb="md">
+        <Title order={2} mb="sm">
           All Products
         </Title>
         <AllProductsGrid />

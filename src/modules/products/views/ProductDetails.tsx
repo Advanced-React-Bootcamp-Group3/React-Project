@@ -94,7 +94,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   In Stock
                 </Badge>
               ) : (
-                <Badge color="red" size="lg">
+                <Badge color="brown" size="lg">
                   Out of Stock
                 </Badge>
               )}

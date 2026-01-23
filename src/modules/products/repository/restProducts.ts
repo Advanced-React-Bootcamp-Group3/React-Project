@@ -36,6 +36,14 @@ export const restProducts = (): ProductsRepository => {
         limit: data.limit,
       };
     },
+    getByCategory: async (category: string): Promise<Product[]> => {
+      const response = await fetch(`${Base_URL}/category/${category}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch products for category: ${category}`);
+      }
+      const data = await response.json();
+      return toProduct(data.products);
+    },
     deleteOne: async (id: number) => {
       const response = await fetch(`${Base_URL}/${id}`, {
         method: 'DELETE',

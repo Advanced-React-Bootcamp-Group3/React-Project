@@ -68,7 +68,7 @@ export const Footer = () => {
                     size="md"
                     type="email"
                   />
-                  <Button type="submit" size="md" variant="filled" color="blue">
+                  <Button type="submit" size="md" variant="filled" color="brown">
                     Subscribe
                   </Button>
                 </Group>

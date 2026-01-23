@@ -138,7 +138,7 @@ export const Header = () => {
             </form>
           </Group>
 
-          <Group gap="sm">
+          <Group gap="sm" style={{ overflow: "visible" }}>
             <ActionIcon variant="subtle" size="lg" radius="xl">
               <IconUser size={20} />
             </ActionIcon>

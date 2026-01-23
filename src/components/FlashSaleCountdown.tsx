@@ -36,8 +36,8 @@ export const FlashSaleCountdown = ({ endTime }: FlashSaleCountdownProps) => {
   }, [endTime]);
 
   return (
-    <Group gap="lg"  justify="flex-start">
-      <Text size="sm" fw={600} c="gold.5" >
+    <Group gap="lg" justify="center">
+      <Text size="sm" fw={600} c="gold.5">
         Ends in:
       </Text>
       <Box

@@ -1,6 +1,6 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
-import { MantineProvider, createTheme } from '@mantine/core'
+import { MantineProvider } from '@mantine/core'
 import { Toaster } from 'react-hot-toast'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -13,8 +13,7 @@ import { createCartModule } from '../modules/cart/index'
 import { FavoritesProvider } from '../modules/favorites/index'
 import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
-
-const theme = createTheme({})
+import { professionalTheme } from '../theme/theme'
 
 const { Provider: ProductsProvider } = createProductsModule()
 const { Provider: CategoriesProvider } = createCategoriesModule()
@@ -26,7 +25,7 @@ const queryClient = new QueryClient({
 
 export const Route = createRootRoute({
   component: () => (
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={professionalTheme}>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <ProductsProvider>

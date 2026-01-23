@@ -64,7 +64,7 @@ export const HeroBanner = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Badge size="lg" color="red" variant="filled" style={{ width: "fit-content" }}>
+            <Badge size="lg" color="gold" variant="filled" style={{ width: "fit-content" }}>
               {badge}
             </Badge>
           </motion.div>
