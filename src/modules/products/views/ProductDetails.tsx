@@ -27,8 +27,15 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     : product.price
 
   return (
-    <Container size="lg" py="xl">
-      <Grid>
+    <Box
+      style={{
+        background: "linear-gradient(135deg, #8b6f47 0%, #6d5638 100%)",
+        padding: "40px 0 60px",
+        minHeight: "100vh",
+      }}
+    >
+      <Container size="lg">
+        <Grid>
         {/* Product Image */}
         <Grid.Col span={{ base: 12, md: 6 }}>
           <Image
@@ -44,17 +51,17 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         <Grid.Col span={{ base: 12, md: 6 }}>
           <Stack gap="md">
             {/* Category Badge */}
-            <Badge color="blue" size="lg" variant="light">
+            <Badge color="gold" size="lg" variant="light">
               {product.category}
             </Badge>
 
             {/* Product Name */}
-            <Title order={1}>{product.name}</Title>
+            <Title order={1} c="white">{product.name}</Title>
 
             {/* Rating */}
             <Group gap="xs">
               <Rating value={product.rating} readOnly size="sm" />
-              <Text size="sm" c="dimmed">
+              <Text size="sm" c="gray.2">
                 ({product.rating} / 5)
               </Text>
             </Group>
@@ -63,18 +70,18 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             <Box>
               {hasDiscount ? (
                 <Group gap="md" align="center">
-                  <Text size="xl" c="dimmed" td="line-through">
+                  <Text size="xl" c="gray.3" td="line-through">
                     ${product.price.toFixed(2)}
                   </Text>
-                  <Text size="2rem" fw={700} c="red">
+                  <Text size="2rem" fw={700} c="gold.5">
                     ${discountedPrice.toFixed(2)}
                   </Text>
-                  <Badge color="red" size="lg">
+                  <Badge color="gold" size="lg">
                     {product.discountPercentage}% OFF
                   </Badge>
                 </Group>
               ) : (
-                <Text size="2rem" fw={700}>
+                <Text size="2rem" fw={700} c="gold.5">
                   ${product.price.toFixed(2)}
                 </Text>
               )}
@@ -97,21 +104,21 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
             {/* Description */}
             <Box>
-              <Title order={3} mb="sm">
+              <Title order={3} mb="sm" c="white">
                 Description
               </Title>
-              <Text size="md">{product.description}</Text>
+              <Text size="md" c="gray.2">{product.description}</Text>
             </Box>
 
             {/* Tags */}
             {product.tags && product.tags.length > 0 && (
               <Box>
-                <Title order={3} mb="sm">
+                <Title order={3} mb="sm" c="white">
                   Tags
                 </Title>
                 <Group gap="xs">
                   {product.tags.map((tag) => (
-                    <Badge key={tag} variant="light">
+                    <Badge key={tag} variant="light" color="gold">
                       {tag}
                     </Badge>
                   ))}
@@ -121,22 +128,23 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
 
             {/* Action Buttons */}
             <Group mt="md">
-              <Button color="blue" size="lg" disabled={!product.isAvailable}>
+              <Button color="brown" size="lg" disabled={!product.isAvailable}>
                 Add to Cart
               </Button>
-              <Button component={Link} to="/" variant="outline" size="lg">
+              <Button component={Link} to="/" variant="light" size="lg" color="white">
                 Back to Products
               </Button>
             </Group>
           </Stack>
         </Grid.Col>
       </Grid>
+      </Container>
 
       {/* Reviews Section */}
       {product.reviews && product.reviews.length > 0 && (
         <Box mt="xl">
           <Divider mb="xl" />
-          <Title order={2} mb="md">
+          <Title order={2} mb="md" c="white">
             Reviews ({product.reviews.length})
           </Title>
           <Stack gap="md">
@@ -160,6 +168,6 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
           </Stack>
         </Box>
       )}
-    </Container>
+    </Box>
   )
 }
