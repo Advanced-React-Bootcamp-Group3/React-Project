@@ -157,7 +157,7 @@ export const CartPage = () => {
                           </Text>
                           <ActionIcon
                             variant="light"
-                            color="brown"
+                            color="red"
                             onClick={() => handleRemoveItem(item.productId)}
                           >
                             <IconTrash size={18} />

@@ -122,7 +122,7 @@ export const FavoritesIcon = () => {
   
                   <Button
                     variant="subtle"
-                    color="brown"
+                    color="red"
                     size="sm"
                     onClick={() => handleRemove(item.productId)}
                   >

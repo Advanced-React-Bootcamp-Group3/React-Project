@@ -87,7 +87,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
           Add to Cart
         </Button>
         <Button 
-          color="brown" 
+          color="red" 
           fullWidth 
           radius="md"
           onClick={(e) => {

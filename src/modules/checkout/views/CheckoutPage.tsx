@@ -237,12 +237,12 @@ export const CheckoutPage = () => {
                             <Image
                               src={item.image}
                               alt={item.name}
-                              width={60}
-                              height={60}
+                              width={20}
+                              height={100}
                               fit="contain"
                               radius="md"
                             />
-                            <Box style={{ flex: 1, minWidth: 0 }}>
+                            <Box>
                               <Text size="sm" fw={500} lineClamp={1}>
                                 {item.name}
                               </Text>
