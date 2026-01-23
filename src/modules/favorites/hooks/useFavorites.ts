@@ -3,38 +3,26 @@ import { useFavoritesContext } from "../index";
 import type { FavoriteItem } from "../entities/Favorite";
 
 export const useFavorites = () => {
-  const { repository } = useFavoritesContext();
+  const { repository, favorites, refreshFavorites } = useFavoritesContext();
 
-  const addItem = useCallback(
-    (item: FavoriteItem) => {
-      repository.add(item);
-    },
-    [repository]
-  );
+  const addItem = useCallback((item: FavoriteItem) => {
+    repository.add(item);
+    refreshFavorites();
+  }, [repository, refreshFavorites]);
 
-  const removeItem = useCallback(
-    (productId: number) => {
-      repository.remove(productId);
-    },
-    [repository]
-  );
+  const removeItem = useCallback((productId: number) => {
+    repository.remove(productId);
+    refreshFavorites();
+  }, [repository, refreshFavorites]);
 
-  const isFavorite = useCallback(
-    (productId: number): boolean => {
-      return repository.isFavorite(productId);
-    },
-    [repository]
-  );
-
-  const getAll = useCallback(() => {
-    return repository.getAll();
-  }, [repository]);
+  const isFavorite = useCallback((productId: number) => 
+    favorites.items.some((i) => i.productId === productId), [favorites]);
 
   return {
     addItem,
     removeItem,
     isFavorite,
-    getAll,
-    count: getAll().items.length,
+    getAll: () => favorites,
+    count: favorites.items.length,
   };
 };

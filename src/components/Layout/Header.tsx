@@ -1,10 +1,12 @@
 import { AppShell, Group, Title, Container, Button, Popover, Box, TextInput, ActionIcon, Image } from "@mantine/core";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { CartIcon } from "../../modules/cart/views";
 import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
 import { useGetAllCategories } from "../../modules/categories/hooks/useGetAllCategories";
 import { IconChevronDown, IconSearch, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
+import { headerAnimations, buttonAnimations } from "../../animations/animations";
 
 export const Header = () => {
   const location = useLocation();
@@ -31,53 +33,74 @@ export const Header = () => {
   };
 
   return (
-    <AppShell.Header 
-      style={{ 
-        borderBottom: "1px solid #e0d4c4",
-        backgroundColor: "#ffffff",
-        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
-      }}
+    <motion.div
+      initial={headerAnimations.initial}
+      animate={headerAnimations.animate}
+      transition={headerAnimations.transition}
     >
-      <Container size="lg" h="100%">
-        <Group justify="space-between" align="center" h="100%" gap="xl">
-          <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: "8px" }}>
-            <Image src="/logo.svg" alt="ShopHub Logo" h={40} w="auto" fit="contain" />
-            <Title order={2} fw={600} c="brown.7" style={{ letterSpacing: "0.05em", fontFamily: '"Playfair Display", serif' }}>
-              ShopHub
-            </Title>
-          </Link>
+      <AppShell.Header 
+        style={{ 
+          borderBottom: "1px solid #e0d4c4",
+          backgroundColor: "#ffffff",
+          boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
+        }}
+      >
+        <Container size="lg" h="100%">
+          <Group justify="space-between" align="center" h="100%" gap="xl">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Link to="/" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: "8px" }}>
+                <Image src="/logo.svg" alt="ShopHub Logo" h={40} w="auto" fit="contain" />
+                <Title order={2} fw={600} c="brown.7" style={{ letterSpacing: "0.05em", fontFamily: '"Playfair Display", serif' }}>
+                  ShopHub
+                </Title>
+              </Link>
+            </motion.div>
 
           <Group gap="md" visibleFrom="md" style={{ flex: 1, maxWidth: 600 }}>
-            <Button
-              component={Link}
-              to="/"
-              variant={location.pathname === "/" ? "filled" : "subtle"}
-              radius="sm"
-              color="brown"
-              style={{ 
-                fontWeight: 500,
-                letterSpacing: "0.05em",
-                textTransform: "uppercase",
-                fontSize: "0.75rem",
-              }}
+            <motion.div
+              whileHover={buttonAnimations.hover}
+              whileTap={buttonAnimations.tap}
             >
-              Home
-            </Button>
-            <Button
-              component={Link}
-              to="/products"
-              variant={location.pathname === "/products" ? "filled" : "subtle"}
-              radius="sm"
-              color="brown"
-              style={{ 
-                fontWeight: 500,
-                letterSpacing: "0.05em",
-                textTransform: "uppercase",
-                fontSize: "0.75rem",
-              }}
+              <Button
+                component={Link}
+                to="/"
+                variant={location.pathname === "/" ? "filled" : "subtle"}
+                radius="sm"
+                color="brown"
+                style={{ 
+                  fontWeight: 500,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  fontSize: "0.75rem",
+                }}
+              >
+                Home
+              </Button>
+            </motion.div>
+            <motion.div
+              whileHover={buttonAnimations.hover}
+              whileTap={buttonAnimations.tap}
             >
-              Products
-            </Button>
+              <Button
+                component={Link}
+                to="/products"
+                variant={location.pathname === "/products" ? "filled" : "subtle"}
+                radius="sm"
+                color="brown"
+                style={{ 
+                  fontWeight: 500,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                  fontSize: "0.75rem",
+                }}
+              >
+                Products
+              </Button>
+            </motion.div>
             
             <Popover
               width={600}
@@ -148,5 +171,6 @@ export const Header = () => {
         </Group>
       </Container>
     </AppShell.Header>
+    </motion.div>
   );
 };

@@ -1,26 +1,20 @@
 import { ActionIcon, Badge, Popover, Stack, Group, Image, Text, Button, Box } from "@mantine/core";
 import { IconHeart } from "@tabler/icons-react";
 import { useFavorites } from "../hooks/useFavorites";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
 export const FavoritesIcon = () => {
   const { getAll, removeItem } = useFavorites();
   const [opened, setOpened] = useState(false);
-  const [favorites, setFavorites] = useState(() => getAll());
+  const favorites = getAll();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const interval = setInterval(() => setFavorites(getAll()), 100);
-    return () => clearInterval(interval);
-  }, [getAll]);
 
   const items = favorites.items;
   const count = items.length;
 
   const handleRemove = (productId: number) => {
     removeItem(productId);
-    setFavorites(getAll());
   };
 
   return (
