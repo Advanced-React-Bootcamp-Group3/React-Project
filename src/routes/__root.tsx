@@ -11,6 +11,7 @@ import { createProductsModule } from '../modules/products/index'
 import { createCategoriesModule } from '../modules/categories/index'
 import { createCartModule } from '../modules/cart/index'
 import { FavoritesProvider } from '../modules/favorites/index'
+import { CheckoutProvider } from '../modules/checkout/index'
 import { Layout } from '../components/Layout'
 
 const theme = createTheme({})
@@ -32,10 +33,12 @@ export const Route = createRootRoute({
           <CategoriesProvider>
             <CartProvider>
               <FavoritesProvider>
-                <Layout>
-                  <Outlet />
-                </Layout>
-                <Toaster />
+                <CheckoutProvider>
+                  <Layout>
+                    <Outlet />
+                  </Layout>
+                  <Toaster />
+                </CheckoutProvider>
               </FavoritesProvider>
             </CartProvider>
           </CategoriesProvider>

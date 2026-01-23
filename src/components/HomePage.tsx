@@ -3,24 +3,18 @@ import { HeroBannerSlider } from "./HeroBannerSlider";
 import { TrustFactors } from "./TrustFactors";
 import { ProductSlider } from "./ProductSlider";
 import { FlashSaleCountdown } from "./FlashSaleCountdown";
-import { useGetAllProducts } from "../modules/products/hooks/useGetAllProducts";
+import { useGetAllProducts, type ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
 
 export const HomePage = () => {
   const { all: products, isLoading } = useGetAllProducts();
 
-  const newArrivals = products.slice(0, 8);
-  const bestSellers = [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
-  const flashSaleProducts = products
-    .filter((p) => p.hasDiscounts && p.discountPercentage && p.discountPercentage >= 15)
-    .slice(0, 8);
-  
   const flashSaleEndTime = (() => {
     const endTime = new Date();
     endTime.setHours(endTime.getHours() + 24);
     return endTime;
   })();
 
-  if (isLoading) {
+  if (isLoading || !products) {
     return (
       <Center h={400}>
         <Loader size="lg" />
@@ -28,9 +22,23 @@ export const HomePage = () => {
     );
   }
 
+  if (products.length === 0) {
+    return (
+      <Center h={400}>
+        <Loader size="lg" />
+      </Center>
+    );
+  }
+
+  const newArrivals = products.slice(0, 8);
+  const bestSellers = [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
+  const flashSaleProducts = products
+    .filter((p: ProductsWithDiscountPrice) => p.hasDiscounts && p.discountPercentage && p.discountPercentage >= 15)
+    .slice(0, 8);
+
   const featuredProducts = [...products]
     .filter(
-      (p) =>
+      (p: ProductsWithDiscountPrice) =>
         (p.hasDiscounts || p.rating >= 4.5) &&
         p.category.toLowerCase() !== "furniture"
     )
@@ -40,14 +48,6 @@ export const HomePage = () => {
       return b.rating - a.rating;
     })
     .slice(0, 5);
-
-  if (products.length === 0) {
-    return (
-      <Center h={400}>
-        <Loader size="lg" />
-      </Center>
-    );
-  }
 
   return (
     <Stack gap={0}>

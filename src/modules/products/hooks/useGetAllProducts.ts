@@ -45,6 +45,7 @@ export const useGetAllProducts = () => {
   });
 
   return {
+    all: data.all,
     productWithdiscount: data.productsWithDiscount,
     isEmpty: !isLoading && !error && data.all.length === 0,
     isLoading,
