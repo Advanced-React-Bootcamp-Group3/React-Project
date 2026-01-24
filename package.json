@@ -1,13 +1,12 @@
 {
-  "name": "react-project",
+  "name": "hub-shop",
   "packageManager": "pnpm@10.0.0",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
