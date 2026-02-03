@@ -21,11 +21,8 @@
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
     "vite": "catalog:",
-    "postcss-simple-vars": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "postcss": "catalog:",
     "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "@types/node": "catalog:"
+    "@types/react-dom": "catalog:"
   }
 }

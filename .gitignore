@@ -25,3 +25,9 @@ dist-ssr
 
 # Build and cache directories
 .tanstack
+
+# Turbo
+.turbo/
+
+# TypeScript build info
+*.tsbuildinfo
