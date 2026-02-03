@@ -5,6 +5,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   root: path.resolve(__dirname),
+  base: "/admin",
   server: {
     port: 5000,
   },
