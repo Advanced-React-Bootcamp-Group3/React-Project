@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ProductsTable({ products }: { products: any[] }) {
   return (
     <table className="table" aria-label="Products table">

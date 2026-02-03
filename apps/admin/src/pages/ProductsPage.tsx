@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import ProductsTable from "../components/ProductsTable";
 

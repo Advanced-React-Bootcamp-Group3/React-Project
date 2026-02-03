@@ -1,4 +1,4 @@
-import React from "react";
+// no default React import needed with `jsx: react-jsx`
 import useFetch from "../hooks/useFetch";
 import StatsCard from "../components/StatsCard";
 import ProductsTable from "../components/ProductsTable";

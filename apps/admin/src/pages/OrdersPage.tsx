@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import OrdersTable from "../components/OrdersTable";
 
@@ -25,7 +25,7 @@ export default function OrdersPage() {
       </div>
 
       <div className="panel">
-        <OrdersTable carts={carts} />
+        <OrdersTable carts={carts} onSelect={setSelected} />
       </div>
 
       {selected && (

@@ -16,7 +16,7 @@ export default defineConfig({
     preserveSymlinks: false,
   },
   css: {
-    postcss: "../postcss.config.cjs",
+    postcss: "../../postcss.config.cjs",
   },
   server: {
     port: 3000,

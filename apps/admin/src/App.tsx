@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
 import ProductsPage from "./pages/ProductsPage";
 import OrdersPage from "./pages/OrdersPage";
@@ -13,27 +13,34 @@ export default function App() {
     <div className="admin-container">
       <aside className="sidebar" role="navigation" aria-label="Sidebar">
         <div className="brand">Hub Shop</div>
-        <nav className="nav">
-          <a
+        <nav className="nav" aria-label="Main navigation">
+          <button
+            type="button"
             onClick={() => setPage("dashboard")}
             className={page === "dashboard" ? "active" : ""}
           >
             Dashboard
-          </a>
-          <a
+          </button>
+          <button
+            type="button"
             onClick={() => setPage("products")}
             className={page === "products" ? "active" : ""}
           >
             Products
-          </a>
-          <a
+          </button>
+          <button
+            type="button"
             onClick={() => setPage("orders")}
             className={page === "orders" ? "active" : ""}
           >
             Orders
-          </a>
-          <a>Customers</a>
-          <a>Settings</a>
+          </button>
+          <button type="button" onClick={() => {}} aria-disabled>
+            Customers
+          </button>
+          <button type="button" onClick={() => {}} aria-disabled>
+            Settings
+          </button>
         </nav>
         <div className="footer-note">
           Signed in as <strong className="small">admin@hubshop.test</strong>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useProducts } from "..";
-import type { ProductWithDiscountPrice } from "./useGetAllProducts";
+import type { ProductsWithDiscountPrice } from "./useGetAllProducts";
 import type { Product } from "../entities/Product";
 
 const PRODUCTS_PER_PAGE = 12;
@@ -16,13 +16,15 @@ export const usePaginatedProducts = () => {
     staleTime: 1000 * 60 * 5, // 5 minutes
     select: (data) => ({
       ...data,
-      products: data.products.map((product: Product): ProductWithDiscountPrice => ({
-        ...product,
-        discountedPrice:
-          product.hasDiscounts && product.discountPercentage
-            ? product.price * (1 - product.discountPercentage / 100)
-            : product.price,
-      })),
+      products: data.products.map(
+        (product: Product): ProductsWithDiscountPrice => ({
+          ...product,
+          discountedPrice:
+            product.hasDiscounts && product.discountPercentage
+              ? product.price * (1 - product.discountPercentage / 100)
+              : product.price,
+        }),
+      ),
     }),
   });
 
