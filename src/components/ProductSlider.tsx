@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { IconArrowRight } from "@tabler/icons-react";
 import { ProductCard } from "../modules/products/views/ProductCard";
 import type { ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 type ProductSliderProps = {
   title: string;
@@ -37,7 +37,7 @@ export const ProductSlider = ({
   return (
     <Container size="xl" py="md">
       <motion.div
-        variants={sectionVariants}
+        variants={sectionVariants as Variants}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.25 }}

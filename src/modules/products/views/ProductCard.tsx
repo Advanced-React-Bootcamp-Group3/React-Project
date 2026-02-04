@@ -62,7 +62,7 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
     e.preventDefault();
     e.stopPropagation();
     navigate({
-      to: "/products/$productId",
+      to: "/product/$productId",
       params: { productId: String(product.id) },
     });
   };
@@ -102,7 +102,7 @@ export const ProductCard = ({ product, showNewBadge = false }: ProductCardProps)
         }}
       >
         <Link
-          to="/products/$productId"
+          to="/product/$productId"
           params={{ productId: String(product.id) }}
           style={{ textDecoration: "none", display: "block", width: "100%", height: "100%" }}
         >

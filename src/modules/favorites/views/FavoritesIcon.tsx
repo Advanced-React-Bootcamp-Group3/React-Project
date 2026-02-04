@@ -85,7 +85,7 @@ export const FavoritesIcon = () => {
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         navigate({
-                          to: "/products/$productId",
+                          to: "/product/$productId",
                           params: { productId: String(item.productId) },
                         });
                         setOpened(false);
@@ -107,7 +107,7 @@ export const FavoritesIcon = () => {
                     style={{ cursor: "pointer" }}
                     onClick={() => {
                       navigate({
-                        to: "/products/$productId",
+                        to: "/product/$productId",
                         params: { productId: String(item.productId) },
                       });
                       setOpened(false);

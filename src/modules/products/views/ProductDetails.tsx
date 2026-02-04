@@ -188,7 +188,7 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                 whileHover={buttonAnimations.hover}
                 whileTap={buttonAnimations.tap}
               >
-                <Button component={Link} to="/products" variant="light" size="lg" color="white">
+                <Button component={Link} to="/" variant="light" size="lg" color="white">
                   Back to Products
                 </Button>
               </motion.div>

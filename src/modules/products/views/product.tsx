@@ -29,7 +29,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
     >
       <Card.Section pos="relative">
         <Link
-          to="/products/$productId"
+          to="/product/$productId"
           params={{ productId: String(product.id) }}
           style={{ textDecoration: "none", display: "block" }}
         >
@@ -54,7 +54,7 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
       </Card.Section>
 
       <Link
-        to="/products/$productId"
+        to="/product/$productId"
         params={{ productId: String(product.id) }}
         style={{ textDecoration: "none", color: "inherit" }}
       >

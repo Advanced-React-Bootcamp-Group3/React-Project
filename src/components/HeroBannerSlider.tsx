@@ -14,7 +14,7 @@ export const HeroBannerSlider = ({ products }: HeroBannerSliderProps) => {
 
   const handleSlideClick = (productId: number) => {
     navigate({
-      to: "/products/$productId",
+      to: "/product/$productId",
       params: { productId: String(productId) },
     });
   };

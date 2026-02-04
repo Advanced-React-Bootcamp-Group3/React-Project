@@ -59,7 +59,7 @@ export const DiscountProductsCarousel = ({
                 >
                   <Card.Section pos="relative">
                     <Link
-                      to="/products/$productId"
+                      to="/product/$productId"
                       params={{ productId: String(product.id) }}
                       style={{ textDecoration: "none", display: "block" }}
                     >
@@ -94,7 +94,7 @@ export const DiscountProductsCarousel = ({
                     }}
                   >
                     <Link
-                      to="/products/$productId"
+                      to="/product/$productId"
                       params={{ productId: String(product.id) }}
                       style={{ textDecoration: "none", color: "inherit" }}
                     >

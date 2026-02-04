@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react";
 import { localStorageFavorites } from "./repository/localStorageFavorites";
 import type { FavoritesRepository } from "./repository/FavoritesRepository";
 import type { Favorites } from "./entities/Favorite";
@@ -18,7 +18,7 @@ export const useFavoritesContext = () => {
 };
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
-  const repository = useMemo(() => localStorageFavorites(), []);
+  const repository = useCallback(() => localStorageFavorites(), [])();
   const [favorites, setFavorites] = useState<Favorites>(() => repository.getAll());
 
   const refreshFavorites = useCallback(() => setFavorites(repository.getAll()), [repository]);

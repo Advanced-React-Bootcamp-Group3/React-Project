@@ -1,20 +1,32 @@
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { routeTree } from "./routeTree.gen";
 
-// Create router instance
-const router = createRouter({ routeTree });
+import App from "./App";
+import "./index.css";
+import { theme } from "./theme";
+import { createProductsModule } from "./modules/products";
 
-// Register router for type safety
-declare module '@tanstack/react-router' {
-  interface Register {
-    router: typeof router;
-  }
-}
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false, retry: false } },
+});
 
-createRoot(document.getElementById("root")!).render(
+const { Provider: ProductsProvider } = createProductsModule();
+
+const root = createRoot(document.getElementById("root")!);
+
+root.render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>,
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+      <MantineProvider theme={theme}>
+        <ProductsProvider>
+          <App />
+        </ProductsProvider>
+      </MantineProvider>
+    </QueryClientProvider>
+  </StrictMode>
 );
