@@ -1,11 +1,21 @@
+import type { KeyboardEvent } from "react";
+
+type CartProduct = { id: number | string; title: string; quantity: number };
+type Cart = {
+  id: number | string;
+  userId: number;
+  products?: CartProduct[];
+  total?: number;
+};
+
 export default function OrdersTable({
   carts,
   onSelect,
 }: {
-  carts: any[];
-  onSelect?: (c: any) => void;
+  carts: Cart[];
+  onSelect?: (c: Cart) => void;
 }) {
-  const handleKey = (e: React.KeyboardEvent, c: any) => {
+  const handleKey = (e: KeyboardEvent<HTMLTableRowElement>, c: Cart) => {
     if (!onSelect) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -24,7 +34,7 @@ export default function OrdersTable({
         </tr>
       </thead>
       <tbody>
-        {carts?.map((c: any) => (
+        {carts?.map((c: Cart) => (
           <tr
             key={c.id}
             onClick={() => onSelect?.(c)}

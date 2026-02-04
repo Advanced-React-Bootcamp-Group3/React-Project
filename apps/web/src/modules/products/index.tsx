@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, type PropsWithChildren } from "react";
 import type { ProductsRepository } from "./repository/ProductsRepository";
 import { restProducts } from "./repository/restProducts";

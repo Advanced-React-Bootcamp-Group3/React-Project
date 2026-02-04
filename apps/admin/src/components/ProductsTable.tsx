@@ -1,4 +1,12 @@
-export default function ProductsTable({ products }: { products: any[] }) {
+type Product = {
+  id: number | string;
+  title: string;
+  price?: number;
+  stock?: number;
+  category?: string;
+};
+
+export default function ProductsTable({ products }: { products: Product[] }) {
   return (
     <table className="table" aria-label="Products table">
       <thead>
@@ -11,7 +19,7 @@ export default function ProductsTable({ products }: { products: any[] }) {
         </tr>
       </thead>
       <tbody>
-        {products?.map((p) => (
+        {products?.map((p: Product) => (
           <tr key={p.id}>
             <td>{p.id}</td>
             <td>{p.title}</td>

@@ -2,22 +2,30 @@ import { useMemo, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import ProductsTable from "../components/ProductsTable";
 
+type Product = {
+  id: number | string;
+  title: string;
+  price?: number;
+  stock?: number;
+  category?: string;
+};
+
 export default function ProductsPage() {
-  const { data: productsRes, loading } = useFetch<any>(
+  const { data: productsRes, loading } = useFetch<{ products?: Product[] }>(
     "https://dummyjson.com/products?limit=100",
   );
-  const products = productsRes?.products ?? [];
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
-    if (!query) return products;
+    const base = productsRes?.products ?? [];
+    if (!query) return base;
     const q = query.toLowerCase();
-    return products.filter(
-      (p: any) =>
+    return base.filter(
+      (p: Product) =>
         p.title.toLowerCase().includes(q) ||
         (p.category || "").toLowerCase().includes(q),
     );
-  }, [products, query]);
+  }, [productsRes, query]);
 
   return (
     <div>

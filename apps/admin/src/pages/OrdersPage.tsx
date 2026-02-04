@@ -2,12 +2,20 @@ import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import OrdersTable from "../components/OrdersTable";
 
+type CartProduct = { id: number | string; title: string; quantity: number };
+type Cart = {
+  id: number | string;
+  userId: number;
+  products?: CartProduct[];
+  total?: number;
+};
+
 export default function OrdersPage() {
-  const { data: cartsRes, loading } = useFetch<any>(
+  const { data: cartsRes, loading } = useFetch<{ carts?: Cart[] }>(
     "https://dummyjson.com/carts?limit=50",
   );
   const carts = cartsRes?.carts ?? [];
-  const [selected, setSelected] = useState<any | null>(null);
+  const [selected, setSelected] = useState<Cart | null>(null);
 
   return (
     <div>
@@ -33,7 +41,7 @@ export default function OrdersPage() {
           <h4>Order #{selected.id}</h4>
           <div className="small">User: {selected.userId}</div>
           <ul>
-            {selected.products?.map((p: any) => (
+            {selected.products?.map((p: CartProduct) => (
               <li key={p.id}>
                 {p.title} × {p.quantity}
               </li>

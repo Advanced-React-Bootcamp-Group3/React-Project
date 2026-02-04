@@ -4,21 +4,36 @@ import StatsCard from "../components/StatsCard";
 import ProductsTable from "../components/ProductsTable";
 import OrdersTable from "../components/OrdersTable";
 
+type Product = {
+  id: number | string;
+  title: string;
+  price?: number;
+  stock?: number;
+  category?: string;
+};
+type CartProduct = { id: number | string; title: string; quantity: number };
+type Cart = {
+  id: number | string;
+  userId: number;
+  products?: CartProduct[];
+  total?: number;
+};
+
 export default function Dashboard() {
-  const { data: pCountRes, loading: pCountLoading } = useFetch<any>(
-    "https://dummyjson.com/products?limit=1",
-  );
-  const { data: uCountRes } = useFetch<any>(
+  const { data: pCountRes, loading: pCountLoading } = useFetch<{
+    total?: number;
+  }>("https://dummyjson.com/products?limit=1");
+  const { data: uCountRes } = useFetch<{ total?: number }>(
     "https://dummyjson.com/users?limit=1",
   );
-  const { data: cCountRes } = useFetch<any>(
+  const { data: cCountRes } = useFetch<{ total?: number }>(
     "https://dummyjson.com/carts?limit=1",
   );
 
-  const { data: productsRes } = useFetch<any>(
+  const { data: productsRes } = useFetch<{ products?: Product[] }>(
     "https://dummyjson.com/products?limit=8",
   );
-  const { data: cartsRes } = useFetch<any>(
+  const { data: cartsRes } = useFetch<{ carts?: Cart[] }>(
     "https://dummyjson.com/carts?limit=6",
   );
 
