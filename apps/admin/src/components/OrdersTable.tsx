@@ -6,12 +6,12 @@ export default function OrdersTable({
   onSelect?: (c: any) => void;
 }) {
   const handleKey = (e: React.KeyboardEvent, c: any) => {
-    if (!onSelect) return
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault()
-      onSelect(c)
+    if (!onSelect) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onSelect(c);
     }
-  }
+  };
 
   return (
     <table className="table" aria-label="Orders table">
@@ -31,7 +31,7 @@ export default function OrdersTable({
             onKeyDown={(e) => handleKey(e, c)}
             tabIndex={onSelect ? 0 : -1}
             style={{ cursor: onSelect ? "pointer" : "default" }}
-            role={onSelect ? 'button' : undefined}
+            role={onSelect ? "button" : undefined}
           >
             <td>{c.id}</td>
             <td>{c.userId}</td>
