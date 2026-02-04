@@ -16,13 +16,15 @@ export const usePaginatedProducts = () => {
     staleTime: 1000 * 60 * 5, // 5 minutes
     select: (data) => ({
       ...data,
-      products: data.products.map((product: Product): ProductsWithDiscountPrice => ({
-        ...product,
-        discountedPrice:
-          product.hasDiscounts && product.discountPercentage
-            ? product.price * (1 - product.discountPercentage / 100)
-            : product.price,
-      })),
+      products: data.products.map(
+        (product: Product): ProductsWithDiscountPrice => ({
+          ...product,
+          discountedPrice:
+            product.hasDiscounts && product.discountPercentage
+              ? product.price * (1 - product.discountPercentage / 100)
+              : product.price,
+        }),
+      ),
     }),
   });
 
