@@ -27,4 +27,21 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: [
+            'react',
+            'react-dom',
+            '@mantine/core',
+            '@mantine/hooks',
+            '@tabler/icons-react',
+            'framer-motion',
+            '@tanstack/react-query'
+          ]
+        }
+      }
+    }
+  }
 });
