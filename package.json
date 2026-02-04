@@ -12,6 +12,7 @@
     "clean": "turbo clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "@mantine/core": "catalog:",
     "@eslint/js": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",

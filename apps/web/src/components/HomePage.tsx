@@ -4,8 +4,10 @@ import { TrustFactors } from "./TrustFactors";
 import { ProductSlider } from "./ProductSlider";
 import { FlashSaleCountdown } from "./FlashSaleCountdown";
 import { useGetAllProducts, type ProductsWithDiscountPrice } from "../modules/products/hooks/useGetAllProducts";
+import { useFeatureFlags } from "../modules/feature-flag";
 
 export const HomePage = () => {
+  const { isFlashSaleEnabled } = useFeatureFlags();
   const { all: products, isLoading } = useGetAllProducts();
 
   const flashSaleEndTime = (() => {
@@ -81,7 +83,7 @@ export const HomePage = () => {
         />
       </Box>
 
-      {flashSaleProducts.length > 0 && (
+      {isFlashSaleEnabled && flashSaleProducts.length > 0 && (
         <Box
           style={{
             background: "var(--mantine-color-brown-7)",
