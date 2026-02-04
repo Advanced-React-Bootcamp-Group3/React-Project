@@ -24,7 +24,7 @@ export const CheckoutPage = () => {
   const { cart, clearCart } = useCart();
   const { createOrder, isProcessing } = useCheckout();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -42,7 +42,7 @@ export const CheckoutPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (cart.items.length === 0) {
       toast.error("Your cart is empty");
       navigate({ to: "/cart" });
@@ -51,7 +51,7 @@ export const CheckoutPage = () => {
 
     try {
       await createOrder({
-        items: cart.items.map(item => ({
+        items: cart.items.map((item) => ({
           productId: item.productId,
           name: item.name,
           image: item.image,
@@ -79,11 +79,13 @@ export const CheckoutPage = () => {
           total: cart.total,
         },
       });
-      
+
       toast.success("Order placed successfully!");
       clearCart();
       navigate({ to: "/" });
-    } catch (error) {
+    } catch (err) {
+      // log the error for diagnostics
+      console.error(err);
       toast.error("Failed to place order");
     }
   };
@@ -91,7 +93,11 @@ export const CheckoutPage = () => {
   if (cart.items.length === 0) {
     return (
       <Container size="lg" py="xl">
-        <Stack align="center" gap="xl" style={{ minHeight: "60vh", justifyContent: "center" }}>
+        <Stack
+          align="center"
+          gap="xl"
+          style={{ minHeight: "60vh", justifyContent: "center" }}
+        >
           <Title order={2}>Your cart is empty</Title>
           <Text size="lg" c="dimmed" ta="center">
             Please add items to your cart before checkout.
@@ -134,7 +140,9 @@ export const CheckoutPage = () => {
                         placeholder="John"
                         required
                         value={formData.firstName}
-                        onChange={(e) => handleInputChange("firstName", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("firstName", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 6 }}>
@@ -143,7 +151,9 @@ export const CheckoutPage = () => {
                         placeholder="Doe"
                         required
                         value={formData.lastName}
-                        onChange={(e) => handleInputChange("lastName", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("lastName", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12 }}>
@@ -153,7 +163,9 @@ export const CheckoutPage = () => {
                         placeholder="john.doe@example.com"
                         required
                         value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("email", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12 }}>
@@ -162,7 +174,9 @@ export const CheckoutPage = () => {
                         placeholder="+1 234 567 8900"
                         required
                         value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("phone", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12 }}>
@@ -171,7 +185,9 @@ export const CheckoutPage = () => {
                         placeholder="123 Main Street"
                         required
                         value={formData.address}
-                        onChange={(e) => handleInputChange("address", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("address", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 6 }}>
@@ -180,7 +196,9 @@ export const CheckoutPage = () => {
                         placeholder="New York"
                         required
                         value={formData.city}
-                        onChange={(e) => handleInputChange("city", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("city", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 6 }}>
@@ -189,7 +207,9 @@ export const CheckoutPage = () => {
                         placeholder="10001"
                         required
                         value={formData.zipCode}
-                        onChange={(e) => handleInputChange("zipCode", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("zipCode", e.target.value)
+                        }
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12 }}>
@@ -198,7 +218,9 @@ export const CheckoutPage = () => {
                         placeholder="United States"
                         required
                         value={formData.country}
-                        onChange={(e) => handleInputChange("country", e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("country", e.target.value)
+                        }
                       />
                     </Grid.Col>
                   </Grid>
@@ -210,14 +232,25 @@ export const CheckoutPage = () => {
                   </Title>
                   <Divider mb="md" />
                   <Text size="sm" c="dimmed">
-                    Payment method selection will be implemented based on your payment provider.
+                    Payment method selection will be implemented based on your
+                    payment provider.
                   </Text>
                 </Paper>
               </Stack>
             </Grid.Col>
 
             <Grid.Col span={{ base: 12, md: 5 }}>
-              <Paper p="xl" radius="md" withBorder shadow="sm" style={{ position: "sticky", top: 80, backgroundColor: "#faf8f6" }}>
+              <Paper
+                p="xl"
+                radius="md"
+                withBorder
+                shadow="sm"
+                style={{
+                  position: "sticky",
+                  top: 80,
+                  backgroundColor: "#faf8f6",
+                }}
+              >
                 <Stack gap="md">
                   <Title order={3} mb="xs">
                     Order Summary
@@ -232,7 +265,12 @@ export const CheckoutPage = () => {
                       const itemTotal = itemPrice * item.quantity;
 
                       return (
-                        <Card key={item.productId} p="sm" withBorder radius="md">
+                        <Card
+                          key={item.productId}
+                          p="sm"
+                          withBorder
+                          radius="md"
+                        >
                           <Group gap="sm" wrap="nowrap">
                             <Image
                               src={item.image}

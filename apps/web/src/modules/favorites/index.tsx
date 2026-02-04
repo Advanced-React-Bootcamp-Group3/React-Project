@@ -1,4 +1,13 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, type ReactNode } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { localStorageFavorites } from "./repository/localStorageFavorites";
 import type { FavoritesRepository } from "./repository/FavoritesRepository";
 import type { Favorites } from "./entities/Favorite";
@@ -13,18 +22,27 @@ const FavoritesContext = createContext<FavoritesContextType | null>(null);
 
 export const useFavoritesContext = () => {
   const context = useContext(FavoritesContext);
-  if (!context) throw new Error("useFavoritesContext must be used within FavoritesProvider");
+  if (!context)
+    throw new Error(
+      "useFavoritesContext must be used within FavoritesProvider",
+    );
   return context;
 };
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const repository = useMemo(() => localStorageFavorites(), []);
-  const [favorites, setFavorites] = useState<Favorites>(() => repository.getAll());
+  const [favorites, setFavorites] = useState<Favorites>(() =>
+    repository.getAll(),
+  );
 
-  const refreshFavorites = useCallback(() => setFavorites(repository.getAll()), [repository]);
+  const refreshFavorites = useCallback(
+    () => setFavorites(repository.getAll()),
+    [repository],
+  );
 
   useEffect(() => {
-    const handleStorage = (e: StorageEvent) => e.key === "favorites" && refreshFavorites();
+    const handleStorage = (e: StorageEvent) =>
+      e.key === "favorites" && refreshFavorites();
     const handleUpdate = () => refreshFavorites();
     window.addEventListener("storage", handleStorage);
     window.addEventListener("favoritesUpdated", handleUpdate);
@@ -35,7 +53,9 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   }, [refreshFavorites]);
 
   return (
-    <FavoritesContext.Provider value={{ repository, favorites, refreshFavorites }}>
+    <FavoritesContext.Provider
+      value={{ repository, favorites, refreshFavorites }}
+    >
       {children}
     </FavoritesContext.Provider>
   );
