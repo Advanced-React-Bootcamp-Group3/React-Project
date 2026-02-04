@@ -1,14 +1,14 @@
-const js = require('@eslint/js')
-const globals = require('globals')
-const reactHooks = require('eslint-plugin-react-hooks')
-const reactRefresh = require('eslint-plugin-react-refresh')
-const tseslint = require('typescript-eslint')
-const { defineConfig, globalIgnores } = require('eslint/config')
+const js = require("@eslint/js");
+const globals = require("globals");
+const reactHooks = require("eslint-plugin-react-hooks");
+const reactRefresh = require("eslint-plugin-react-refresh");
+const tseslint = require("typescript-eslint");
+const { defineConfig, globalIgnores } = require("eslint/config");
 
 module.exports = defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
@@ -20,4 +20,4 @@ module.exports = defineConfig([
       globals: globals.browser,
     },
   },
-])
+]);
