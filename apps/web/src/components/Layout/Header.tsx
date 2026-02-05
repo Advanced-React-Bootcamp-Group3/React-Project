@@ -1,12 +1,27 @@
-import { AppShell, Group, Title, Container, Button, Popover, Box, TextInput, ActionIcon, Image } from "@mantine/core";
+import { useState, useRef, useEffect } from "react";
+import { 
+  AppShell, 
+  Group, 
+  Title, 
+  Container, 
+  Button, 
+  Popover, 
+  Box, 
+  TextInput, 
+  ActionIcon, 
+  Image 
+} from "@mantine/core";
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { IconChevronDown, IconSearch, IconUser } from "@tabler/icons-react";
 import { CartIcon } from "../../modules/cart/views";
 import { FavoritesIcon } from "../../modules/favorites/views/FavoritesIcon";
 import { useGetAllCategories } from "../../modules/categories/hooks/useGetAllCategories";
-import { IconChevronDown, IconSearch, IconUser } from "@tabler/icons-react";
-import { useState } from "react";
+import { useGetAllProducts } from "../../modules/products/hooks/useGetAllProducts";
 import { headerAnimations, buttonAnimations } from "../../animations/animations";
+import type { Product } from "../../modules/products/entities/Product";
+import { SearchResults } from "../../components/SearchResults";
+
 
 export const Header = () => {
   const location = useLocation();
@@ -14,6 +29,9 @@ export const Header = () => {
   const { categories, isLoading } = useGetAllCategories();
   const [opened, setOpened] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showResults, setShowResults] = useState(false);
+  const { all } = useGetAllProducts();
+  const searchRef = useRef<HTMLDivElement>(null);
 
   const handleCategoryClick = (categorySlug: string) => {
     navigate({
@@ -23,13 +41,27 @@ export const Header = () => {
     setOpened(false);
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate({
-        to: "/products",
-      });
-    }
+  const filteredProducts = all?.filter((product) => {
+    return product.name.toLowerCase().includes(searchQuery.toLowerCase());
+  }) as Product[] | undefined;
+
+
+  /// clear search results on -> outside click ///
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+        setShowResults(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.currentTarget.value;
+    setSearchQuery(value);
+    setShowResults(value.length > 0);
   };
 
   return (
@@ -61,10 +93,7 @@ export const Header = () => {
             </motion.div>
 
           <Group gap="md" visibleFrom="md" style={{ flex: 1, maxWidth: 600 }}>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
-            >
+            <motion.div whileHover={buttonAnimations.hover} whileTap={buttonAnimations.tap}>
               <Button
                 component={Link}
                 to="/"
@@ -81,10 +110,8 @@ export const Header = () => {
                 Home
               </Button>
             </motion.div>
-            <motion.div
-              whileHover={buttonAnimations.hover}
-              whileTap={buttonAnimations.tap}
-            >
+            
+            <motion.div whileHover={buttonAnimations.hover} whileTap={buttonAnimations.tap}>
               <Button
                 component={Link}
                 to="/products"
@@ -145,20 +172,28 @@ export const Header = () => {
               </Popover.Dropdown>
             </Popover>
 
-            <form onSubmit={handleSearch} style={{ flex: 1, maxWidth: 300 }}>
-              <TextInput
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.currentTarget.value)}
-                leftSection={<IconSearch size={18} />}
-                rightSection={
-                  <ActionIcon type="submit" variant="subtle">
-                    <IconSearch size={18} />
-                  </ActionIcon>
-                }
-                style={{ width: "100%" }}
+            <Box ref={searchRef} style={{ flex: 1, maxWidth: 300, position: "relative" }}>
+              <form>
+                <TextInput
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  leftSection={<IconSearch size={18} />}
+                  rightSection={
+                    <ActionIcon type="submit" variant="subtle">
+                      <IconSearch size={18} />
+                    </ActionIcon>
+                  }
+                  style={{ width: "100%" }}
+                />
+              </form>
+              
+              <SearchResults
+                products={filteredProducts || []}
+                isVisible={showResults && searchQuery.length > 0}
+                onClose={() => setShowResults(false)}
               />
-            </form>
+            </Box>
           </Group>
 
           <Group gap="sm" style={{ overflow: "visible" }}>
