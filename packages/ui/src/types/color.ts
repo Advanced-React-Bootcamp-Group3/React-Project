@@ -1,0 +1,15 @@
+export type Color =
+    | 'initial'
+    | 'fg-primary'
+    | 'fg-secondary'
+    | 'fg-tertiary'
+    | 'brand-primary'
+    | 'brand-secondary'
+    | 'error'
+    | 'success'
+    | 'v-fg-primary'
+    | 'v-bg-primary'
+    | 'bg-primary'
+    | 'border'
+    | 'white'
+    | 'blue';

@@ -256,7 +256,7 @@ export const HeroBannerSlider = ({ products }: HeroBannerSliderProps) => {
                       whileTap={{ scale: 0.95 }}
                       onClick={(e) => {
                         e.stopPropagation();
-                        navigate({ to: "/products" });
+                        navigate({ to: "/products", search: { category: undefined } });
                       }}
                     >
                       View All Products

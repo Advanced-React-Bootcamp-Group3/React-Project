@@ -1,11 +1,5 @@
-import {
-  Badge,
-  Button,
-  Card,
-  Box,
-  Image,
-  Text,
-} from "@mantine/core";
+import { Button, Text } from "@advanced-react/ui";
+import {Badge,Card,Box,Image} from "@mantine/core";
 import { Link } from "@tanstack/react-router";
 import type { ProductsWithDiscountPrice } from "../hooks/useGetAllProducts";
 import { useDeleteProduct } from "../hooks/useDeleteProduct";
@@ -58,49 +52,53 @@ export const Product = ({ product }: { product: ProductsWithDiscountPrice }) => 
         params={{ productId: String(product.id) }}
         style={{ textDecoration: "none", color: "inherit" }}
       >
-        <Text fw={600} mt="md" lineClamp={2} style={{ minHeight: 48, cursor: "pointer" }}>
+        <Text tag="h2" scale="regular" style={{ minHeight: 48, cursor: "pointer", marginTop: 16 }}>
           {product.name}
         </Text>
       </Link>
 
-      <Text size="sm" c="dimmed" lineClamp={2} mt="xs">
+      <Text tag="p" scale="semibold" style={{ marginTop: 8 }}>
         {product.description}
       </Text>
 
       <Box mt="auto" pt="md">
         {hasDiscount ? (
           <Box mb="md">
-            <Text size="sm" c="dimmed" td="line-through">
+            <Text tag="span" scale="large-semibold" style={{ textDecoration: "line-through", color: "#999", display: "block" }}>
               ${product.price.toFixed(2)}
             </Text>
-            <Text size="xl" fw={700} c="gold.5">
+            <Text tag="span" scale="large-semibold" style={{ color: "#D4AF37", display: "block" }}>
               ${product.discountedPrice.toFixed(2)}
             </Text>
           </Box>
         ) : (
-          <Text size="xl" fw={700} mb="md">
+          <Text tag="span" scale="large-semibold" style={{ display: "block", marginBottom: 16 }}>
             ${product.price.toFixed(2)}
           </Text>
         )}
 
-        <Button color="brown" fullWidth radius="md" mb={'5'}>
-          Add to Cart
-        </Button>
-        <Button 
-          color="red" 
-          fullWidth 
-          radius="md"
+        <Button
+          label="Add to Cart"
+          variant="primary"
+          size="regular"
+          width="stretched"
+          onClick={() => {}}
+          className="mb-2"
+        />
+        <Button
+          label="Delete"
+          variant="danger"
+          size="regular"
+          width="stretched"
           onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
+            e?.preventDefault();
+            e?.stopPropagation();
             deleteProduct(product.id);
           }}
           loading={isPending}
           disabled={isPending}
-        >
-          Delete
-        </Button>
-        {error && <Text c="brown" size="sm" mt="xs">{error.message}</Text>}
+        />
+        {error && <Text tag="span" scale="large-semibold" style={{ color: "#8B4513", marginTop: 8 }}>{error.message}</Text>}
       </Box>
     </Card>
   );
