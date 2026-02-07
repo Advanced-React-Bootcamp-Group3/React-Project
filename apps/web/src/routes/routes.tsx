@@ -6,14 +6,12 @@ import { ProductDetailsPage } from "../modules/products/views/ProductDetailsPage
 import { CartPage } from "../modules/cart/views/CartPage";
 import { CheckoutPage } from "../modules/checkout/views/CheckoutPage";
 
-const RootComponent = () => (
-  <Layout>
-    <Outlet />
-  </Layout>
-);
-
 export const rootRoute = createRootRoute({
-  component: RootComponent,
+  component: () => (
+    <Layout>
+      <Outlet />
+    </Layout>
+  ),
   notFoundComponent: () => <Navigate to="/" />,
 });
 
