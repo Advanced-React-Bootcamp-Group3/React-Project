@@ -12,8 +12,11 @@
     "clean": "turbo clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "@mantine/core": "catalog:",
     "@eslint/js": "catalog:",
+    "@mantine/core": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
@@ -21,9 +24,10 @@
     "turbo": "^2.5.0",
     "typescript": "catalog:",
     "typescript-eslint": "catalog:",
-    "vite": "catalog:",
-    "@vitejs/plugin-react": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:"
+    "vite": "catalog:"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "^1.158.4",
+    "react-hot-toast": "^2.6.0"
   }
 }

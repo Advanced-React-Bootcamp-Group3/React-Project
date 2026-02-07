@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@advanced-react/ui": "workspace:*",
     "@tabler/icons-react": "catalog:",
     "@mantine/carousel": "catalog:",
     "@mantine/core": "catalog:",
